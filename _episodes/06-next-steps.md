@@ -4,8 +4,8 @@ teaching: 20
 exercises: 0
 questions:
     - "Where can I go from here?"
+    - "What are some useful tips and tricks to know when coding?"
     - "What other opportunities are available for me to learn more?"
-    - "How do I start to think like a software developer (rather than a coder)?"
 objectives:
     - "Knowing what best practices are when thinking about code (as opposed to just writing it!)"
     - "Determine where additional training materials can be found."
