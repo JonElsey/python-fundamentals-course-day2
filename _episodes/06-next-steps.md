@@ -19,7 +19,16 @@ keypoints:
 # Things to try and think about when writing code
 
 * Coding is difficult!
-  If you get stuff wrong, that's OK! 
+  
+  If you get stuff wrong, that's OK! You will 100% write code that doesn't work, or has bugs in it. *This is normal!* I've been writing code in Python for 10 years and still get basic stuff wrong.
+
+* Don't get discouraged!
+
+  The best thing to do is to have a go at solving the problem. Worst case - your code throws an error. Think about what is causing the error, solve it, and move onto the next one! Each time you solve an error, you will know what to do when it occurs again next time. See fixing problems as an opportunity for growth rather than something negative.
+
+* 
+
+
 
 # Additional training
 
