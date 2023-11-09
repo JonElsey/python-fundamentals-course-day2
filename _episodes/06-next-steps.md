@@ -28,7 +28,7 @@ keypoints:
 
 * Break down problems into smaller ones
 
-  Think like a scientist - if we see a big problem, it is often constructive to break it down into several smaller ones, then build them together to find the solution. As tempting as it is to write big long scripts with lots of repeated code, if you can, don't! Think about problems before you solve them - how can we decompose it into functions that solve one specific problem each, and then bring it all together?
+  Think like a scientist - if we see a big problem, it is often constructive to break it down into several smaller ones, then build them together to find the solution. As tempting as it is to write big long scripts with lots of repeated (read: copy and pasted) code, if you can, don't! Think about problems before you solve them - how can we decompose it into functions that solve one specific problem each, and then bring it all together?
 
 This can be a huge time saver as well - often you'll write bits of code that solve similar problems - why not just re-use the same functions/code from your previous project? I have an ever-evolving list of useful functions I've written to solve specific (often menial) problems I often face when doing data analysis/visualisation.
 
