@@ -5,7 +5,7 @@ permalink: index.html
 ---
 
 This portion of the course is focused more on a) some best practices when writing code, and b) doing
-some slightly more complex data analysis tasks using the Pandas and netCDF4 libraries.
+some slightly more complex data analysis tasks using the Pandas and netCDF4 libraries, and visualising them using Cartopy.
 
 The webpage for the first day can be found [here](https://jonelsey.github.io/python-fundamentals-course-day1).
 
