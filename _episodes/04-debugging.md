@@ -191,15 +191,13 @@ People are more likely to listen to us
 when we can explain clearly what we did,
 and we're better able to give them the information they need to be useful.
 
-> ## Version Control Revisited
+> ## Version Control
 >
 > Version control is often used to reset software to a known state during debugging,
 > and to explore recent changes to code that might be responsible for bugs.
-> In particular,
-> most version control systems (e.g. git, Mercurial) have:
-> 1. a `blame` command that shows who last changed each line of a file;
-> 2. a `bisect` command that helps with finding the commit that introduced an
->    issue.
+> The most popular method of version control is using Git/GitHub.
+> We won't have time to cover using these tools in this course, but it is very useful to know about them!
+> ARCCA have some training courses available on their website [arcca](https://arcca.github.io), which I recommend.
 {: .callout}
 
 ## Be Humble
