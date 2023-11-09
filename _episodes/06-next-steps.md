@@ -18,6 +18,8 @@ keypoints:
 
 # Things to try and think about when writing code
 
+* Coding is difficult!
+  If you get stuff wrong, that's OK! 
 
 # Additional training
 
