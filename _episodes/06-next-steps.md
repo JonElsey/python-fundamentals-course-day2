@@ -21,8 +21,8 @@ keypoints:
 
 # Additional training
 
-ARCCA have some training courses available on their website [arcca](https://arcca.github.io), which I recommend. They tend to run these a few times a year, or you can work through the material in your own time. 
-These courses (and this one!) are based on courses developed by an organisation called The Carpentries. You can find their software lessons [swc-lessons](here) . Additional lessons are available on the [dc-lessons](Data_Carpentries) website; these tend to focus on more specific but still potentially relevant things. These are also highly recommended! 
+ARCCA have some training courses available on their [website](https://arcca.github.io), which I recommend. They tend to run these a few times a year, or you can work through the material in your own time. 
+These courses (and this one!) are based on courses developed by an organisation called The Carpentries. You can find their software lessons [here]([https://](https://softwarecarpentry.org/lessons/)) . Additional lessons are available on the [Data Carpentries](https://datacarpentry.org/lessons/) website; these tend to focus on more specific but still potentially relevant things. These are also highly recommended! 
 
 {% include links.md %}
 
