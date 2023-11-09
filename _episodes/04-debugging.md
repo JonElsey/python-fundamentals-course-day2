@@ -77,15 +77,11 @@ scientists tend to do the following:
 4.  *Check conservation laws.*
     Mass, energy, and other quantities are conserved in physical systems,
     so they should be in programs as well.
-    Similarly,
-    if we are analyzing patient data,
-    the number of records should either stay the same or decrease
-    as we move from one analysis to the next
-    (since we might throw away outliers or records with missing values).
-    If "new" patients start appearing out of nowhere as we move through our pipeline,
-    it's probably a sign that something is wrong.
+    Simple sanity checks are e.g. checking that the number of data points
+    matches how many timesteps you want to use from your dataset, or
+    if running some statistics making sure that the values that you get are meaningful.
 
-5.  *Visualize.*
+6.  *Visualize.*
     Data analysts frequently use simple visualizations to check both
     the science they're doing
     and the correctness of their code
@@ -207,8 +203,7 @@ if we can't find a bug in 10 minutes,
 we should *be humble* and ask for help.
 Explaining the problem to someone else is often useful,
 since hearing what we're thinking helps us spot inconsistencies and hidden assumptions.
-If you don't have someone nearby to share your problem description with, get a
-[rubber duck](https://en.wikipedia.org/wiki/Rubber_duck_debugging)!
+
 
 Asking for help also helps alleviate confirmation bias.
 If we have just spent an hour writing a complicated program,
@@ -217,6 +212,12 @@ so we're likely to keep telling ourselves why it should,
 rather than searching for the reason it doesn't.
 People who aren't emotionally invested in the code can be more objective,
 which is why they're often able to spot the simple mistakes we have overlooked.
+
+Google is your best friend. And StackOverflow is where your best friend keeps all of their knowledge tucked away.
+Chances are, if you're running into some kind of bug, particularly if you are using widely-used libraries,
+doing a Google search for the error message with "site:stackoverflow.com"
+will result in you finding someone else who has had the same bug, asked a question and got a working answer.
+You can always ask me for help too! Drop me a line via Teams or email.
 
 Part of being humble is learning from our mistakes.
 Programmers tend to get the same things wrong over and over:
