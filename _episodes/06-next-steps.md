@@ -1,5 +1,5 @@
 ---
-title: Working with data using Pandas
+title: Next steps
 teaching: 30
 exercises: 30
 questions:
