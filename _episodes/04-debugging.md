@@ -197,7 +197,7 @@ and we're better able to give them the information they need to be useful.
 > and to explore recent changes to code that might be responsible for bugs.
 > The most popular method of version control is using Git/GitHub.
 > We won't have time to cover using these tools in this course, but it is very useful to know about them!
-> ARCCA have some training courses available on their website [arcca](https://arcca.github.io), which I recommend.
+> I may run a course on version control software in the future if there is any interest.
 {: .callout}
 
 ## Be Humble
