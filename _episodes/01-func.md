@@ -31,7 +31,7 @@ keypoints:
    then call it with different parameter values to customize its behavior."
 ---
 
-At this point, we've seen that code can have Python make decisions about what it sees in our data. What if we want to convert some of our data, like taking a temperature in Fahrenheit and converting it to Celsius. We could write something like this for converting a single number 
+From yesterday we've seen that code can have Python make decisions about what it sees in our data. What if we want to convert some of our data, like taking a temperature in Fahrenheit and converting it to Celsius. We could write something like this for converting a single number 
 
 ~~~
 fahrenheit_val = 99
