@@ -1,7 +1,7 @@
 ---
 title: Next steps
-teaching: 30
-exercises: 30
+teaching: 20
+exercises: 0
 questions:
     - "How can I import data in Python?"
     - "What is Pandas?"
