@@ -150,17 +150,24 @@ masked_array(data=40557.,
 ~~~
 {: .output}
 
-So our time data is a set of numbers, differing by 30 or 31. These must be monthly data then! But how can we get this into a nice format? Let's put this to one side a second and focus more on our temperature data.
+So our time data is a set of numbers, differing by 30 or 31. These must be monthly data then! But how can we get this into a nice format? It seems complicated! Let's put this to one side and focus more on our temperature data.
 
-
+A useful thing to do whenever working with data is to plot it up! So let's do just that. 
 
 ~~~
-matplotlib.pyplot.imshow(globaldata["hs_avg"][0], extent=[0,360,-90,90], origin='lower')
-matplotlib.pyplot.show()
+lon = globaldata.variables['lon'][:]
+lat = globaldata.variables['lat'][:]
+days_since_1Jan1900 = globaldata.variables['time'][:]
+tmp = globaldata.variables['tmp'][:]
+
+fig = plt.figure()
+plt.contourf(lon, lat, data, 16, cmap='Reds')
+
 ~~~
 {: .language-python}
 
-![Global surface waveheight](../fig/global_surfaceu.svg)
+
+![Raw temperature data at index 0](../fig/raw_t_time0.png)
 
 
 
