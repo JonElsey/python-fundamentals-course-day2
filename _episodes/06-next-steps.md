@@ -116,7 +116,9 @@ Depending on your feedback, I may also offer more advanced courses in future.
 
 * Object oriented code
   
-  A lot of code you will see may use what we call an ``object oriented`` approach. For example, instead of doing ``np.sum(array)``, you may see something similar to ``array.sum()``. This is something I may give a workshop on in future as it is a very useful way of thinking about code!
+  A lot of code you will see may use what we call an ``object oriented`` approach. For example, instead of doing ``np.sum(array)``, you may see something similar to ``array.sum()``. We touched on this when working with our netCDF files - e.g. when loading in a netCDF using ``Dataset``, this is an object, which we operate on using the ``variables`` *method* to get e.g. our lat/long grids and our temperature fields from the CRU example. 
+
+  This is something I may give a workshop on in future as it is a very useful way of thinking about code when writing your own - particularly for large-scale projects.
   
 {% include links.md %}
 
