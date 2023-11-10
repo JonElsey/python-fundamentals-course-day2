@@ -439,10 +439,6 @@ Now let's finally use our date data! There is a convenient way to work with date
 import datetime
 
 def get_date(idx):
-    """
-    Get a date from an array index for use in our plot title
-    """
-  
     date = datetime.date(1900, 1, 1) + datetime.timedelta(days=int(days_since_1Jan1900[idx]))
     print(f'date = {date}')
 get_date(0)
@@ -460,13 +456,9 @@ We are almost at what we want. We have the correct date now (16 Jan 2011), but w
 import datetime
 
 def get_date(idx):
-    """
-    Get a date from an array index for use in our plot title
-    """
-  
+
     date = datetime.date(1900, 1, 1) + datetime.timedelta(days=int(days_since_1Jan1900[idx]))
     print(f'date = {date}')
-   
     date_string = date.strftime('%B %Y') # https://strftime.org/ for a cheat sheet
     return date_string
 get_date(0)
@@ -485,13 +477,8 @@ vmin = np.min(tmp)
 vmax = np.max(tmp)
 
 def get_date(idx):
-    """
-    Get a date from an array index for use in our plot title
-    """
-  
     date = datetime.date(1900, 1, 1) + datetime.timedelta(days=int(days_since_1Jan1900[idx]))
     print(f'date = {date}')
-   
     date_string = date.strftime('%B %Y') # https://strftime.org/ for a cheat sheet
     return date_string
 
