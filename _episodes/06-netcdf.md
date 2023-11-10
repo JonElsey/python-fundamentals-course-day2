@@ -280,7 +280,7 @@ plt.xlabel('Longitude')
 plt.ylabel('Latitude')
 ax.gridlines(draw_labels=True)
 
-plt.title(f'Surface Temperature (°C)')
+plt.title('Surface Temperature (°C)')
 plt.show()
 ~~~
 {: .language-python}
@@ -340,7 +340,7 @@ def animate_figure(frame):
             levels = np.linspace(vmin, vmax, 41), vmin = vmin, vmax = vmax)
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
-    plt.title(f'Surface Temperature (°C), {get_date(idx)}')
+    plt.title('Surface Temperature (°C), {get_date(idx)}')
 
 ~~~
 {: .language-python}
@@ -356,7 +356,7 @@ def animate_figure(frame):
             levels = np.linspace(vmin, vmax, 41), vmin = vmin, vmax = vmax)
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
-    plt.title(f'Surface Temperature (°C)')
+    plt.title('Surface Temperature (°C)')
 
 tmp = globaldata.variables['tmp'][:]
 
@@ -374,7 +374,7 @@ anim = animation.FuncAnimation(fig, animate_figure,
                             interval = 100, 
                             ) 
 
-anim.save('CRU_data_anim1.gif')
+anim.save('CRU_data_anim.gif')
 ~~~
 {: .language-python}
 ![Animation, no colour bar](../fig/anim_nocolourbar.gif)
@@ -397,7 +397,7 @@ def animate_figure(frame):
             levels = np.linspace(vmin, vmax, 41), vmin = vmin, vmax = vmax)
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
-    plt.title(f'Surface Temperature (°C)')
+    plt.title('Surface Temperature (°C)')
 
 tmp = globaldata.variables['tmp'][:]
 
@@ -420,7 +420,7 @@ anim = animation.FuncAnimation(fig, animate_figure,
                             interval = 100, 
                             ) 
 
-anim.save('CRU_data_anim1.gif')
+anim.save('CRU_data_anim.gif')
 ~~~
 {: .language-python}
 
@@ -455,6 +455,7 @@ datetime.date(2011, 1, 16)
 {: .output}
 
 We are almost at what we want. We have the correct date now (16 Jan 2011), but want it in a format we can display nicely. For this, we use ``strftime`` (string formatting for time). This is a method of the ``date`` object, and takes in a format string as an argument. This lets us specify how we want to display the date - let's just pick the month and year here since we are dealing with monthly data. A ccheat sheet for this (mapping format string -> output type) can be found [here](https://strftime.org/).
+
 ~~~
 import datetime
 
@@ -470,13 +471,66 @@ def get_date(idx):
     return date_string
 get_date(0)
 ~~~
+{: .language-python}
 
 ~~~
 'January 2011'
 ~~~
 {: .output}
+
+Finally, let's put all this together in our ``animate_figure`` function! Note the use of an ``f-string`` again in ``plt.title``. We call our ``get_date`` function directly here - it will put the output of that function (what it ``returns``) into our title.
+
+~~~
+vmin = np.min(tmp)
+vmax = np.max(tmp)
+
+def get_date(idx):
+    """
+    Get a date from an array index for use in our plot title
+    """
+  
+    date = datetime.date(1900, 1, 1) + datetime.timedelta(days=int(days_since_1Jan1900[idx]))
+    print(f'date = {date}')
+   
+    date_string = date.strftime('%B %Y') # https://strftime.org/ for a cheat sheet
+    return date_string
+
+def animate_figure(frame):
+    data = tmp[frame]
+    plt.contourf(lon, lat, data, 16, cmap='Reds', transform=ccrs.PlateCarree(),
+            levels = np.linspace(vmin, vmax, 41), vmin = vmin, vmax = vmax)
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    plt.title(f'Surface Temperature (°C), {get_date(frame)}')
+
+tmp = globaldata.variables['tmp'][:]
+
+fig = plt.figure()
+
+proj = cartopy.crs.PlateCarree()
+
+ax = plt.axes(projection=proj)
+ax.coastlines() 
+ax.gridlines(draw_labels=True)
+
+plt.contourf(lon, lat, tmp[0], 16, cmap='Reds', transform=ccrs.PlateCarree(),
+        levels = np.linspace(vmin, vmax, 41), vmin = vmin, vmax = vmax)
+
+plt.colorbar(orientation = 'horizontal', ticks = np.arange(-50, 50, 10))
+
+from matplotlib import animation
+
+anim = animation.FuncAnimation(fig, animate_figure, 
+                            frames = 84,
+                            interval = 100, 
+                            ) 
+
+anim.save('CRU_data_anim.gif')
+~~~
 {: .language-python}
-Finally, let's put all this together in our ``animate_figure`` function!
+
+![Animation with decimal point colourbar](../fig/animation_final.gif)
+
 
 {% include links.md %}
 
