@@ -266,7 +266,7 @@ ax.coastlines()
 plt.show()
 ~~~
 {: .language-python}
-![Mercator fixed](../fig/mercator_fixed.png)
+![Mercator fixed](../fig/mercator_working.png)
 
 Now it works! We can see that the contour data has warped to match the changed coastlines. This approach works for other, more complex projections also. Let's try looking at a specific region then. There are two ways to do this. First is to slice our array as we did earlier, and just plot that data. This is the more efficient way to do things - particularly with large datasets. We can also cheat a little bit, and just plot a specific region of the whole dataset using ``ax.set_extent``. This has the benefit of letting us use lat/long directly, rather than having to do the conversion ourselves when slicing the array:
 
