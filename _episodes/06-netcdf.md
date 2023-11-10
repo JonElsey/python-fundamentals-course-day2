@@ -1,7 +1,7 @@
 ---
 title: Working with netCDF files and creating animations
-teaching: 60
-exercises: 30
+teaching: 90
+exercises: 0
 questions:
    
 objectives:
