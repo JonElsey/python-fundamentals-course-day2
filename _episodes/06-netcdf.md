@@ -14,8 +14,11 @@ keypoints:
 ### NetCDF files
 
 What about data stored in other types of files? Scientific data is often stored in
-[NetCDF](https://en.wikipedia.org/wiki/NetCDF) files. We can also read these files
-easily with python, but we use to use a different library
+[NetCDF](https://en.wikipedia.org/wiki/NetCDF) files.
+
+NetCDFs are nice! They are *self-describing* - i.e. they are set up to contain both the data required, and any metadata that helps the user understand that data. They are often used to store large 3 (or greater) dimensional matrices or tensors, making them ideal for storing data on e.g. the vertical and horizontal structure of the atmosphere over long timescales. Data such as the [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) climatological reanalysis are stored in netCDF - often with tens or hundreds of different atmospheric variables gridded at each temporal and spatial point. Such large datasets would be very unwieldy to work with in Numpy or even using Pandas, but netCDF has us covered. We will be looking a less complex dataset than this here - but the principles can be applied to using these datasets also.
+
+Python has a library called ``netCDF4`` which is designed for operating with these files. 
 
 We will again use data describing sea waves, but this time looking at a spatial map. This data set shows a static world map, containing data with the multi-year average wave climate. Again, hs_avg is the wave height in metres. But this time, the shape of the matrix is latitude x longitude
 
