@@ -3,13 +3,15 @@ title: Working with netCDF files and creating animations
 teaching: 90
 exercises: 0
 questions:
-   
-objectives:
- - "How can we work with netCDF files (often used in Earth science)?"
+  - "How can we work with netCDF files (often used in Earth science)?"
  - "How can we create maps with coastlines?"
  - "How do we create lots of figures at once?"
  - "How can we create animations to help with visualisation?"
  - "How can we work with datetimes in Python?"
+objectives:
+  - Learn how to use Python's netCDF4 and Cartopy libraries
+  - Learn how to work with datetime objects
+  - Learn how to create animated plots
     
 keypoints:
  - Python's netCDF4, datetime and cartopy libraries are really useful for working with gridded Earth science data
@@ -524,6 +526,7 @@ anim.save('CRU_data_anim.gif')
 
 ![Animation with decimal point colourbar](../fig/CRU_temp.gif)
 
+This looks good now! Now we have the date on the plots, we can see that it makes intuitive sense - the temperature is lower in the Northern Hemisphere during Northern Hemisphere Winter, and vice versa. 
 
 {% include links.md %}
 
