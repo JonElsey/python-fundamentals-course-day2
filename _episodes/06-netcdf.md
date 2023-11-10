@@ -529,7 +529,7 @@ anim.save('CRU_data_anim.gif')
 ~~~
 {: .language-python}
 
-![Animation with decimal point colourbar](../fig/animation_final.gif)
+![Animation with decimal point colourbar](../fig/CRU_temp.gif)
 
 
 {% include links.md %}
