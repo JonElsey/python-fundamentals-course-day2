@@ -174,7 +174,7 @@ np.shape(sliced)
 {: .output}
 
 
-A useful thing to do whenever working with data is to plot it up! So let's do just that. 
+A useful thing to do whenever working with data is to plot it up! So let's do just that. We load in our long/lat data (x and y, opposite way round to how we normally think about lat/long!), our temperature data at our first timestep, define a number of gradations in the contour (how many colour levels), and a colour map. Since we're using temperature, let's use the 'Reds' colourmap. More examples can be found [here](https://matplotlib.org/stable/users/explain/colors/colormaps.html).
 
 ~~~
 from matplotlib import pyplot as plt # best practice is to put imports at the top of the file
@@ -185,7 +185,7 @@ days_since_1Jan1900 = globaldata.variables['time'][:]
 tmp = globaldata.variables['tmp'][:]
 
 fig = plt.figure()
-plt.contourf(lon, lat, data, 16, cmap='Reds')
+plt.contourf(lon, lat, tmp[0], 16, cmap='Reds')
 
 ~~~
 {: .language-python}
@@ -197,9 +197,7 @@ This looks good! We seem to have a map of surface temperature - this looks like 
 
 For this, we will introduce another library, ``cartopy``. Cartopy is a staple library for Earth scientists, as it provides a way of creating nice map-based figures.
 
-We will do the same as we did before - close our Jupyter notebook, install cartopy, and then re-open it. Follow the same steps as before, but using
-
-``conda install cartopy`` (via command line), or using the Navigator. I recommend trying it this time with the command line - it is better to get used to using it now rather than later as it is very powerful!
+We will do the same as we did before - close our Jupyter notebook, install cartopy, and then re-open it. Follow the same steps as before, but using ``conda install cartopy`` (via command line), or using the Navigator. I recommend trying it this time with the command line - it is better to get used to using it now rather than later as it is very powerful!
 
 Now, let's create a map! We'll start by importing cartopy:
 
@@ -262,7 +260,7 @@ plt.show()
 {: .language-python}
 ![Mercator fixed](../fig/mercator_fixed.png)
 
-Now it works! Let's try looking at a specific region then. There are two ways to do this. First is to slice our array as we did earlier, and just plot that data. This is the more efficient way to do things - particularly with large datasets. We can also cheat a little bit, and just plot a specific region of the whole dataset using ``ax.set_extent``. This has the benefit of letting us use lat/long directly, rather than having to do the conversion ourselves when slicing the array:
+Now it works! We can see that the contour data has warped to match the changed coastlines. This approach works for other, more complex projections also. Let's try looking at a specific region then. There are two ways to do this. First is to slice our array as we did earlier, and just plot that data. This is the more efficient way to do things - particularly with large datasets. We can also cheat a little bit, and just plot a specific region of the whole dataset using ``ax.set_extent``. This has the benefit of letting us use lat/long directly, rather than having to do the conversion ourselves when slicing the array:
 
 ~~~
 ax.set_extent([-5.5, -2.5, 51, 54], crs=cartopy.crs.PlateCarree()) # pick out Wales!
@@ -288,7 +286,197 @@ plt.show()
 {: .language-python}
 ![labelled plot](../fig/labelled_platecaree.png)
 
+Now we can add a colour bar in so that our data is actually meaningful. This can be done via:
 
+~~~
+plt.colorbar(orientation = 'horizontal')
+~~~
+{: .language-python}
+![colourbar plot](../fig/colourbar_platecarree.png)
+
+We now have a plot that we could realistically put into a paper! However, we are still only looking at individual timesteps here. And we aren't any closer to being able to convert our ``days_since_1Jan1900`` variable into a nicely formatted date - this would be really useful for our figure title if we could!
+
+We could use a for loop, to generate several of these plots all at once. This is perfectly reasonable to do, particularly if we need still images of specific timesteps. We could do something like:
+
+~~~
+plt.figure()
+proj = cartopy.crs.PlateCarree()
+for idx, val in enumerate(tmp):
+    ax = plt.axes(projection=proj) # this has to come before we do our contour else it will overlay the empty coastlines plot on top!
+
+    plt.contourf(lon, lat, val, 16, cmap='Reds', transform=cartopy.crs.PlateCarree())
+    ax.coastlines()
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    ax.gridlines(draw_labels=True)
+
+    plt.title(f'Surface Temperature (°C)')
+    plt.colorbar(orientation = 'horizontal')
+    plt.save(f'surface_temperature_{idx}.png)
+~~~
+{: .language-python}
+
+A couple of things here. We use ``plt.save`` to save our figure instead of printing it to screen. This is useful as it means you can generate lots of figures and save them without having to do so manually! We need to use unique filenames each time though. We use ``idx`` for this. Notice how we used ``{}`` to format it? This is because of the little ``f`` before we start the string. This is a feature in Python called an ``f-string``, which stands for formatted string. These are exceptionally useful - allowing you to use variables in strings in a quick and simple way. 
+
+What if we want to visualise our data however? Or if we want to present it in an intuitive way in a presentation or blog post? A slicker way of doing this is by creating an animation. This used to be very complex, but has got easier over time as Python has developed further. We will do this using the ``animation`` sub-library of ``matplotlib`` - in particular using a ``FuncAnimation``. 
+
+~~~
+from matplotlib import animation
+anim = animation.FuncAnimation(fig, animate, 
+                            frames = 10,
+                            interval = 500, 
+                            ) 
+~~~
+{: .language-python}
+
+``FuncAnimation`` reads in a base Figure, a function ``animate`` that updates the figure, a number of frames we want to animate, and an interval between each frame (in milliseconds, so smaller = faster). 
+
+We therefore need to write a function to handle the updating of the figure! We have all of the code needed already pretty much. 
+
+~~~
+def animate_figure(frame):
+    data = tmp[frame]
+    plt.contourf(lon, lat, data, 16, cmap='Reds', transform=ccrs.PlateCarree(),
+            levels = np.linspace(vmin, vmax, 41), vmin = vmin, vmax = vmax)
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    plt.title(f'Surface Temperature (°C), {get_date(idx)}')
+
+~~~
+{: .language-python}
+
+``FuncAnimation`` will handle the for loop for us here - we need to supply the function and it will loop ``frames`` times through our dataset.
+
+Let's check it out! We'll keep frames at 10, with a delay of 100 milliseconds.
+
+~~~
+def animate_figure(frame):
+    data = tmp[frame]
+    plt.contourf(lon, lat, data, 16, cmap='Reds', transform=ccrs.PlateCarree(),
+            levels = np.linspace(vmin, vmax, 41), vmin = vmin, vmax = vmax)
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    plt.title(f'Surface Temperature (°C)')
+
+tmp = globaldata.variables['tmp'][:]
+
+fig = plt.figure()
+proj = cartopy.crs.PlateCarree()
+
+ax = plt.axes(projection=proj)
+ax.coastlines() 
+ax.gridlines(draw_labels=True)
+
+from matplotlib import animation
+
+anim = animation.FuncAnimation(fig, animate_figure, 
+                            frames = 10,
+                            interval = 100, 
+                            ) 
+
+anim.save('CRU_data_anim1.gif')
+~~~
+{: .language-python}
+![Animation, no colour bar](../fig/anim_nocolourbar.gif)
+
+You'll notice we haven't included the colour bar here. This is because this requires a bit more thought. We want our colour bar to be consistent. But this means that we need to make sure that the data match this colour bar at every time step! Currently, the deepest red and the brightest white are set to the extreme ranges of whatever temperature data we display *at each timestep*. We can fix this by ensuring that the contour data and the colour bar are normalised to the highest and lowest points in our temperature dataset. 
+
+~~~
+Note that this approach doesn't always work! If your data has large outliers in it, you will need to clean these up first else the vast majority of your colours will be in a very narrow range.
+~~~
+{: .warning}
+
+We start by taking the smallest and largest temperature data in our ``tmp`` dataset. We can then use the ``vmin`` and ``vmax`` keywords of the ``contourf`` function - this will effectively set the max and min colours to this value (which are the largest and smallest in the dataset) - forcing consistency across time periods. We do the same for the colour bar also. This means we don't need to update the colour bar every frame - it is consistent for every timestep so we can just define it before we start the animation! We will create a plot at time 0, so that the colour bar can be made without throwing an error.
+~~~
+vmin = np.min(tmp)
+vmax = np.max(tmp)
+
+def animate_figure(frame):
+    data = tmp[frame]
+    plt.contourf(lon, lat, data, 16, cmap='Reds', transform=ccrs.PlateCarree(),
+            levels = np.linspace(vmin, vmax, 41), vmin = vmin, vmax = vmax)
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    plt.title(f'Surface Temperature (°C)')
+
+tmp = globaldata.variables['tmp'][:]
+
+fig = plt.figure()
+proj = cartopy.crs.PlateCarree()
+
+ax = plt.axes(projection=proj)
+ax.coastlines() 
+ax.gridlines(draw_labels=True)
+
+plt.contourf(lon, lat, tmp[0], 16, cmap='Reds', transform=ccrs.PlateCarree(),
+        levels = np.linspace(vmin, vmax, 41), vmin = vmin, vmax = vmax)
+
+plt.colorbar(orientation = 'horizontal')
+
+from matplotlib import animation
+
+anim = animation.FuncAnimation(fig, animate_figure, 
+                            frames = 10,
+                            interval = 100, 
+                            ) 
+
+anim.save('CRU_data_anim1.gif')
+~~~
+{: .language-python}
+
+![Animation with decimal point colourbar](../fig/animation_decimal.gif)
+
+Nearly there! Two things stand out here. The first of which is that the colour bar now has some rather unfortunate tick labels. The second is that we still don't have a means of knowing when each data point occurs in time! Let's fix the first thing first. We can do this using the ``ticks`` argument of ``colorbar``:
+
+~~~
+plt.colorbar(orientation = 'horizontal', ticks = np.arange(-50, 50, 10))
+~~~
+{: .language-python}
+
+Now let's finally use our date data! There is a convenient way to work with date variables in Python - the ``datetime`` library. Let's write this into a function, so we can re-use it later. It also makes the code a bit easier to read. We have our input data in days since 1st January 1900. The datetime module has a neat function called ``timedelta``. This lets us effectively look at the difference between our date and another given date (it can also do this for time, down to microsecond resolution!). ``datetime.date`` gives us a date in ``YYYY-MM-DD`` format. The magic of ``timedelta`` lets us add our current date to ``1900-01-01`` to get the date we need!
+
+~~~
+import datetime
+
+def get_date(idx):
+    """
+    Get a date from an array index for use in our plot title
+    """
+  
+    date = datetime.date(1900, 1, 1) + datetime.timedelta(days=int(days_since_1Jan1900[idx]))
+    print(f'date = {date}')
+get_date(0)
+~~~
+{: .language-python}
+
+~~~
+datetime.date(2011, 1, 16)
+~~~
+{: .output}
+
+We are almost at what we want. We have the correct date now (16 Jan 2011), but want it in a format we can display nicely. For this, we use ``strftime`` (string formatting for time). This is a method of the ``date`` object, and takes in a format string as an argument. This lets us specify how we want to display the date - let's just pick the month and year here since we are dealing with monthly data. A ccheat sheet for this (mapping format string -> output type) can be found [here](https://strftime.org/).
+~~~
+import datetime
+
+def get_date(idx):
+    """
+    Get a date from an array index for use in our plot title
+    """
+  
+    date = datetime.date(1900, 1, 1) + datetime.timedelta(days=int(days_since_1Jan1900[idx]))
+    print(f'date = {date}')
+   
+    date_string = date.strftime('%B %Y') # https://strftime.org/ for a cheat sheet
+    return date_string
+get_date(0)
+~~~
+
+~~~
+'January 2011'
+~~~
+{: .output}
+{: .language-python}
+Finally, let's put all this together in our ``animate_figure`` function!
 
 {% include links.md %}
 
