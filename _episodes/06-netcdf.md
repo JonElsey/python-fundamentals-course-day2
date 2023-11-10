@@ -172,13 +172,11 @@ plt.contourf(lon, lat, data, 16, cmap='Reds')
 
 
 ~~~
-
+blah
 ~~~
 {: .language-python}
 
-Here, we don't need to use the `mpl_toolkits` library, but it's useful to help format the colourbar.
 
-![Global surface waveheight with a colourbar](../fig/global_surfaceu-colourbar.svg)
 
 {% include links.md %}
 
