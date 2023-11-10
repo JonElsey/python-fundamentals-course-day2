@@ -92,3 +92,6 @@ matplotlib.pyplot.colorbar(im, cax=cax)
 Here, we don't need to use the `mpl_toolkits` library, but it's useful to help format the colourbar.
 
 ![Global surface waveheight with a colourbar](../fig/global_surfaceu-colourbar.svg)
+
+{% include links.md %}
+
