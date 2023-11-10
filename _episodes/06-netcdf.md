@@ -300,7 +300,7 @@ Now we can add a colour bar in so that our data is actually meaningful. This can
 plt.colorbar(orientation = 'horizontal')
 ~~~
 {: .language-python}
-![colourbar plot](../fig/colourbar_platecarree.png)
+![colourbar plot](../fig/colorbar_platecarree.png)
 
 We now have a plot that we could realistically put into a paper! However, we are still only looking at individual timesteps here. And we aren't any closer to being able to convert our ``days_since_1Jan1900`` variable into a nicely formatted date - this would be really useful for our figure title if we could!
 
