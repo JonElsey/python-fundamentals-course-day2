@@ -24,7 +24,7 @@ Such large datasets would be very unwieldy to work with in Numpy or even using P
 
 Python has a library called ``netCDF4`` which is designed for operating with these files. 
 
-We will again use data describing sea waves, but this time looking at a spatial map. This data set shows a static world map, containing data with the multi-year average wave climate. Again, hs_avg is the wave height in metres. But this time, the shape of the matrix is latitude x longitude
+We will here use data from the Climate Research Unit at the UEA, describing monthly-mean global surface temperature. 
 
 > ## Using other libraries
 >
@@ -150,11 +150,35 @@ masked_array(data=40557.,
 ~~~
 {: .output}
 
-So our time data is a set of numbers, differing by 30 or 31. These must be monthly data then! But how can we get this into a nice format? It seems complicated! Let's put this to one side and focus more on our temperature data.
+
+
+~~~
+masked_array(data=40557.,
+             mask=False,
+       fill_value=1e+20,
+            dtype=float32)
+~~~
+{: .output}
+
+So our time data is a set of numbers, differing by 30 or 31. These must be monthly data then! But how can we get this into a nice format? It seems complicated! Let's put this to one side and focus more on our temperature data. Let's say we were just interested in a particular region. To do this, we can slice across the array like we would with any Numpy array:
+~~~
+import numpy as np
+sliced = globaldata.variables['tmp'][:, 10:20, 30:40]
+np.shape(sliced)
+~~~
+{: .language-python}
+
+~~~
+(84, 10, 10)
+~~~
+{: .output}
+
 
 A useful thing to do whenever working with data is to plot it up! So let's do just that. 
 
 ~~~
+from matplotlib import pyplot as plt # best practice is to put imports at the top of the file
+
 lon = globaldata.variables['lon'][:]
 lat = globaldata.variables['lat'][:]
 days_since_1Jan1900 = globaldata.variables['time'][:]
@@ -169,12 +193,100 @@ plt.contourf(lon, lat, data, 16, cmap='Reds')
 
 ![Raw temperature data at index 0](../fig/raw_t_time0.png)
 
+This looks good! We seem to have a map of surface temperature - this looks like what the Earth's surface *should* look like! But we have only plotted up one timestep here, which is not useful for looking at the whole dataset. And what if we want to look at a specific region, or use a different projection?
+
+For this, we will introduce another library, ``cartopy``. Cartopy is a staple library for Earth scientists, as it provides a way of creating nice map-based figures.
+
+We will do the same as we did before - close our Jupyter notebook, install cartopy, and then re-open it. Follow the same steps as before, but using
+
+``conda install cartopy`` (via command line), or using the Navigator. I recommend trying it this time with the command line - it is better to get used to using it now rather than later as it is very powerful!
+
+Now, let's create a map! We'll start by importing cartopy:
 
 
 ~~~
-blah
+import cartopy
 ~~~
 {: .language-python}
+
+Let's define a map projection to begin with. We will start using the simplest - just plotting things on a lat/long grid with no transformation - the ``PlateCarree`` projection. We then need to interface cartopy with our matplotlib Figure, we need to define an ``Axes`` object, and connect it with our map projection. Thankfully, the ``Axes`` object has an argument that lets us do this quickly. Finally, let's draw the coastlines in - using the ``coastlines`` method. This method is available to use thanks to our use of our projection ``proj``. Let's do this on an empty plot to begin with.
+
+~~~
+plt.figure()
+proj = cartopy.crs.PlateCarree()
+ax = plt.axes(projection=proj)
+ax.coastlines()
+plt.show()
+~~~
+{: .language-python}
+
+![Coastlines only](../fig/coastlines.png)
+
+Now put this together with our contour data:
+
+~~~
+plt.figure()
+proj = cartopy.crs.PlateCarree()
+ax = plt.axes(projection=proj) # this has to come before we do our contour else it will overlay the empty coastlines plot on top!
+plt.contourf(lon, lat, tmp[0], 16, cmap='Reds')
+ax.coastlines()
+plt.show()
+~~~
+{: .language-python}
+
+![Coastlines + data](../fig/coastlines_and_data.png)
+
+This looks nice - but we can do a lot more with this. What if we want to look with a different projection? Let's try changing ``proj`` to everyone's favourite Mercator projection (a full list of Cartopy map projections can be found [here](https://scitools.org.uk/cartopy/docs/v0.15/crs/projections.html)).
+
+~~~
+plt.figure()
+proj = cartopy.crs.Mercator()
+ax = plt.axes(projection=proj) # this has to come before we do our contour else it will overlay the empty coastlines plot on top!
+plt.contourf(lon, lat, tmp[0], 16, cmap='Reds')
+ax.coastlines()
+plt.show()
+~~~
+{: .language-python}
+![Mercator bug](../fig/mercator_bug.png)
+
+Our coastlines have disappeared? This is because our contour data is not being transformed to account for our changed projection. This thankfully is not too painful to resolve; we can use the ``transform`` argument of ``contourf`` to do this. We use ``PlateCarree`` as our transform here, and Cartopy will handle the rest.
+
+~~~
+plt.figure()
+proj = cartopy.crs.Mercator()
+ax = plt.axes(projection=proj) # this has to come before we do our contour else it will overlay the empty coastlines plot on top!
+plt.contourf(lon, lat, tmp[0], 16, cmap='Reds', transform=ccrs.PlateCarree())
+ax.coastlines()
+plt.show()
+~~~
+{: .language-python}
+![Mercator fixed](../fig/mercator_fixed.png)
+
+Now it works! Let's try looking at a specific region then. There are two ways to do this. First is to slice our array as we did earlier, and just plot that data. This is the more efficient way to do things - particularly with large datasets. We can also cheat a little bit, and just plot a specific region of the whole dataset using ``ax.set_extent``. This has the benefit of letting us use lat/long directly, rather than having to do the conversion ourselves when slicing the array:
+
+~~~
+ax.set_extent([-5.5, -2.5, 51, 54], crs=cartopy.crs.PlateCarree()) # pick out Wales!
+~~~
+{: .language-python}
+![wales temperature](../fig/wales_temp.png)
+
+Ok, it looks like our data is far too low resolution to work with on scales as small as Wales. Let's try thinking about making our initial global map into a nice, high quality figure. We should first do what any good scientists do and label our axes and write a title. We do this using the ``xlabel``/``ylabel`` functions, and we can draw in labelled gridlines on our map using ``gridlines`` with ``draw_labels = True`` (again this is a nice feature of Cartopy that lets us do this). We also switch back to a more sensible map projection.
+
+~~~
+plt.figure()
+proj = cartopy.crs.PlateCarree()
+ax = plt.axes(projection=proj) # this has to come before we do our contour else it will overlay the empty coastlines plot on top!
+plt.contourf(lon, lat, tmp[0], 16, cmap='Reds', transform=cartopy.crs.PlateCarree())
+ax.coastlines()
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+ax.gridlines(draw_labels=True)
+
+plt.title(f'Surface Temperature (°C)')
+plt.show()
+~~~
+{: .language-python}
+![labelled plot](../fig/labelled_platecaree.png)
 
 
 
