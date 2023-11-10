@@ -5,10 +5,16 @@ exercises: 0
 questions:
    
 objectives:
-
+ - How can we work with netCDF files (often used in Earth science)?
+ - How can we create maps with coastlines?
+ - How do we create lots of figures at once?
+ - How can we create animations to help with visualisation?
+ - How can we work with datetimes in Python?
     
 keypoints:
-
+ - Python's netCDF4, datetime and cartopy libraries are really useful for working with gridded Earth science data
+ - We can use matplotlib to create animations using functions
+ - 
 ---
 
 ### NetCDF files
