@@ -32,6 +32,10 @@ keypoints:
 
   This can be a huge time saver as well - often you'll write bits of code that solve similar problems - why not just re-use the same functions/code from your previous project? I have an ever-evolving list of useful functions I've written to solve specific (often menial) problems I often face when doing data analysis/visualisation.
 
+* Think logically/procedurally
+
+  Often your code will fail and you'll be unsure as to why. The computer will only ever execute the actions you write *exactly as you have written them*. Work through your code and try and work out what is happening to your variables at each step. 
+
 * Be organised
 
   A huge amount of overhead with software is maintenance - in scientific terms this might just mean coming back to code you wrote previously for a paper correction or something. So many times I've looked back at my own code and thought "what on Earth is this nonsense!". Writing logical code split into functions with *lots of comments* helps readability a ton. Also, use logical names and structures for everything. If your data analysis has a bunch of constants/data imports, keeping these at the top of scripts will help you to work out what they do much easier.
@@ -60,6 +64,8 @@ keypoints:
 # Tips and Tricks
 
 These are some little things which you will likely pick up as you start to write more code. We have not necessarily used them in the earlier portions of the course to minimise cognitive load, but "in the wild" you will likely see people using these!
+
+* Block comment in Jupyter Notebooks using Ctrl + / (or Cmd + / on Mac)
 
 * Cut down on typing using the ``as`` keyword...
 
