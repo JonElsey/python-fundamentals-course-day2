@@ -454,7 +454,7 @@ datetime.date(2011, 1, 16)
 ~~~
 {: .output}
 
-We are almost at what we want. We have the correct date now (16 Jan 2011), but want it in a format we can display nicely. For this, we use ``strftime`` (string formatting for time). This is a method of the ``date`` object, and takes in a format string as an argument. This lets us specify how we want to display the date - let's just pick the month and year here since we are dealing with monthly data. A ccheat sheet for this (mapping format string -> output type) can be found [here](https://strftime.org/).
+We are almost at what we want. We have the correct date now (16 Jan 2011), but want it in a format we can display nicely. For this, we use ``strftime`` (string formatting for time). This is a method of the ``date`` object, and takes in a format string as an argument. This lets us specify how we want to display the date - let's just pick the month and year here since we are dealing with monthly data. A cheat sheet for this (mapping format string -> output type) can be found [here](https://strftime.org/).
 
 ~~~
 import datetime
