@@ -34,11 +34,15 @@ keypoints:
 
 * Be organised
 
-  A huge amount of overhead with software is maintenance - in scientific terms this might just mean coming back to code you wrote previously for a paper correction or something. So many times I've looked back at my own code and thought "what on Earth is this nonsense!". Writing logical code split into functions with *lots of comments* helps readability a ton. Also, use logical names and structures for everything. If your data analysis has a bunch of constants/data imports, keeping these at the top of scripts will help you to work out what they do much easier. Have different folders for different projects, so that you can navigate to the specific bit of code you were using easier. Name your scripts something meaningful too! You're not going to remember what "script.py" does in 6 months, but "west_africa_rainfall_analysis.py" might be more useful. This extends to variable names too! Avoid using names like "data" if possible - better to explicitly refer to what you're looking at (so something like "rainfall_data_in" for loading in a netCDF, then splitting this into variables like "lat", "long" and "rainfall").
+  A huge amount of overhead with software is maintenance - in scientific terms this might just mean coming back to code you wrote previously for a paper correction or something. So many times I've looked back at my own code and thought "what on Earth is this nonsense!". Writing logical code split into functions with *lots of comments* helps readability a ton. Also, use logical names and structures for everything. If your data analysis has a bunch of constants/data imports, keeping these at the top of scripts will help you to work out what they do much easier.
+
+  Have different folders for different projects, so that you can navigate to the specific bit of code you were using easier. Name your scripts something meaningful too! You're not going to remember what "script.py" does in 6 months, but "west_africa_rainfall_analysis.py" might be more useful. This extends to variable names too! Avoid using names like "data" if possible - better to explicitly refer to what you're looking at (so something like "rainfall_data_in" for loading in a netCDF, then splitting this into variables like "lat", "long" and "rainfall").
 
 * Write comments!
 
-  I mentioned this already but its so important it bears repeating - writing comments helps others to understand code you've written (without the benefit of having written it), but also helps you to work out what that bit of code you wrote days/weeks/months/years ago does a lot faster than actually reading the code. Try and have comments both at the top-level (what does this function do/what purpose does it serve?), and also perhaps for individual lines of code for tricks and things that may be a bit arcane to work out without context (e.g. if you are doing some kind of normalisation on your data).
+  I mentioned this already but its so important it bears repeating - writing comments helps others to understand code you've written (without the benefit of having written it), but also helps you to work out what that bit of code you wrote days/weeks/months/years ago does a lot faster than actually reading the code.
+
+   Try and have comments both at the top-level (what does this function do/what purpose does it serve?), and also perhaps for individual lines of code for tricks and things that may be a bit arcane to work out without context (e.g. if you are doing some kind of normalisation on your data).
 
 * Don't reinvent the wheel!
 
