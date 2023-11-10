@@ -16,7 +16,7 @@ objectives:
 keypoints:
  - Python's netCDF4, datetime and cartopy libraries are really useful for working with gridded Earth science data
  - We can use matplotlib to create animations using functions
- - 
+
 ---
 
 ### NetCDF files
