@@ -48,7 +48,48 @@ keypoints:
 
   When writing code, premature optimisation is the enemy! Write something that works first, then optimise the bits that are slow. Writing a data analysis script for 100000 different data files? Write something that works for 10 files first, see how fast it is, work out the bits that are slow, then scale. You can always ask me for help if speed is ever an issue. Most data analysis tasks can be run on personal computers. You may eventually run into problems that require High Performance Computing (often abbreviated HPC) - please get in touch if so!
 
+* There is (almost) always more than one way to solve a problem.
 
+  This applies both in terms of the language itself, and how you approach code. 
+
+
+# Tips and Tricks
+
+These are some little things which you will likely pick up as you start to write more code. We have not necessarily used them in the earlier portions of the course to minimise cognitive load, but "in the wild" you will likely see people using these!
+
+* Cut down on typing using the ``as`` keyword...
+
+  When importing modules, you can use the ``as`` keyword to create a kind of shorthand. For example:
+    ``import numpy as np``
+  lets you type ``np.sum(wave_data)`` instead of ``numpy.sum(wave_data)``.
+
+* ... or using the ``from`` keyword.
+
+  You can also, if you are only importing specific parts of a module, use the ``from`` keyword. For example:
+
+  ``from netCDF4 import Dataset``
+
+  lets you type ``Dataset(wave_data)`` instead of ``netCDF4.Dataset(wave_data)``.
+
+* Use ``help`` to get info on a function (or use Google)
+
+  e.g. ``help(np.sum)`` (assuming the ``import numpy as np`` syntax from earlier)
+
+# Other useful libraries for scientific computing (useful to be aware of, although you likely won't use some of these until much later)
+
+* Scipy - algorithms for scientific computing - useful for statistics, working with matrices, probability distribution functions, optimisation problems, interpolation/extrapolation and differential equations
+* Scikit-image - Image processing
+* Scikit-learn - Machine learning/data science - good at almost all standard ML tasks aside from deep learning/neural networks
+* BeautifulSoup - web scraping, potentially really useful for data collection
+* Dask - parallel computing
+* Sympy - symbolic maths using Python! If any of you have used Mathematica, it has similar functionality. 
+
+# Other languages that might be of interest
+
+* R - also free, focused more on statistics/data manipulation, has similar functionality to Python in a lot of places but may be a little easier to use
+* Matlab - University has a paid license, can be good for some specific tasks
+* Fortran/C - used by people doing numerical modelling/number crunching, very hard to learn but necessary for some types of computing
+* Julia - new upstart language, bridges the gap between the speed of Fortran and the library support/ease of use of Python
 
 # Additional training
 
@@ -56,6 +97,18 @@ ARCCA have some training courses available on their [website](https://arcca.gith
 
 ARCCA's courses (and indeed this one!) are based to various degrees on courses developed by an organisation called The Carpentries. You can find their software lessons [here](https://software-carpentry.org/lessons/). Additional lessons are available on the [Data Carpentries](https://datacarpentry.org/lessons/) website; these tend to focus on more specific but still potentially relevant things. These are also highly recommended! 
 
+Depending on your feedback, I may also offer more advanced courses in future.
+
+# Things not covered here (which you may see out in the wild) - read this in your own time if interested!
+
+* Using the command line
+
+  While at first it is useful to run code in Jupyter notebooks or in Spyder, longer term it is very useful to get comfortable using the command line, particularly using the Bash shell (found on Linux/Mac). This will allow you to run your code in batch scripts, allowing for use on HPC systems, or just running lots of iterations of your code at once. ARCCA have some useful training on how to do this.
+
+* Object oriented code
+  
+  A lot of code you will see may use what we call an ``object oriented`` approach. For example, instead of doing ``np.sum(array)``, you may see something similar to ``array.sum()``. This is something I may give a workshop on in future as it is a very useful way of thinking about code!
+  
 {% include links.md %}
 
 
