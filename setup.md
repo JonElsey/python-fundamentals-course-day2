@@ -20,8 +20,8 @@ and in [Anaconda documentation][anaconda-install].
 
 ## Obtain lesson materials
 
-1. Download [python-novice-inflammation-data.zip][zipfile1]
-        and [python-novice-inflammation-code.zip][zipfile2].
+1. Download [cru-data.zip][zipfile1]
+      
 2. Create a folder called `swc-python` on your Desktop.
 3. Move downloaded files to `swc-python`.
 4. Unzip the files.
@@ -138,5 +138,4 @@ winpty python
 [anaconda-instructions]: https://carpentries.github.io/workshop-template/#python
 [anaconda-website]: https://www.anaconda.com/
 [gitbash]: https://gitforwindows.org
-[zipfile1]: {{ page.root }}/data/python-novice-inflammation-data.zip
-[zipfile2]: {{ page.root }}/code/python-novice-inflammation-code.zip
+[zipfile1]: {{ page.root }}/data/cru-data.zip
