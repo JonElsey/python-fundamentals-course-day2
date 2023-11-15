@@ -62,7 +62,7 @@ keypoints:
 
 # Tips and Tricks
 
-These are some little things which you will likely pick up as you start to write more code. We have not necessarily used them in the earlier portions of the course to minimise cognitive load, but "in the wild" you will likely see people using these!
+These are some little things which you will likely pick up as you start to write more code, some of which you have seen already. We may not necessarily have used all of these in the earlier portions of the course to minimise cognitive load, but "in the wild" you will likely see people using these!
 
 * Block comment in Jupyter Notebooks using Ctrl + / (or Cmd + / on Mac)
 
@@ -104,7 +104,7 @@ These are some little things which you will likely pick up as you start to write
 
 * Scipy - algorithms for scientific computing - useful for statistics, working with matrices, probability distribution functions, optimisation problems, interpolation/extrapolation and differential equations
 * Scikit-image - Image processing
-* Scikit-learn - Machine learning/data science - good at almost all standard ML tasks aside from deep learning/neural networks
+* Scikit-learn - Machine learning/data science - good at almost all standard ML tasks aside from deep learning/neural networks, for which you want to use ``TensorFlow`` or ``PyTorch``
 * BeautifulSoup - web scraping, potentially really useful for data collection
 * Dask - parallel computing
 * Sympy - symbolic maths using Python! If any of you have used Mathematica, it has similar functionality. 
