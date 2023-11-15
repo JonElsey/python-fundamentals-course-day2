@@ -1,6 +1,6 @@
 ---
 title: Next steps
-teaching: 20
+teaching: 40
 exercises: 0
 questions:
     - "Where can I go from here?"
