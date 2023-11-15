@@ -86,17 +86,20 @@ These are some little things which you will likely pick up as you start to write
 
 * Use Conda environments!
 
-  So far during this course, we have only used the "base" Anaconda environment. An environment is effectively like a fresh install of Python. This can be very useful when working with libraries, as often they will be dependent on other libraries; when one is updated it can cause everything to stop working, or perhaps two different libraries need two different versions of another library to work.
+  So far during this course, we have only used the "base" Anaconda environment. An environment is effectively like a fresh install of Python. This can be very useful when working with libraries, as often they will be dependent on other libraries; when one is updated it can cause everything to stop working, or perhaps two different libraries need two different versions of another library to work (often known as ["dependency hell"](https://en.wikipedia.org/wiki/Dependency_hell). I tend to use a new Conda environment for each project/application I am working on, as to minimise any conflicts between the stuff I require for each project.
 
-You can create a new Conda environment from the command line using:
+  You can create a new Conda environment from the Anaconda Prompt (i.e. command line) using:
+  
+  ``conda create --name <your_name_here> python``.
+  
+  Or to create one with a specific version of python, in this case an environment called ``waves_project``:
+  
+  ``conda create --name waves_project python=3.9``.
+  
+  This will create a blank slate Python, from which you can install libraries etc. again (you will need to install Jupyter notebook in this environment if you want to use these, via ``conda install jupyter``).
+  This is very useful for organising projects, and making sure that your code still works when you revisit it a year later! 
 
-``conda create --name <your_name_here> python``.
-
-Or to create one with a specific version of python, in this case an environment called ``waves_project``:
-
-``conda create --name waves_project python=3.9``.
-
-This will create a blank slate Python, from which you can install libraries etc. again (you will need to install Jupyter notebook in this environment if you want to use these, via ``conda install jupyter``)
+  
 # Other useful libraries for scientific computing (useful to be aware of, although you likely won't use some of these until much later)
 
 * Scipy - algorithms for scientific computing - useful for statistics, working with matrices, probability distribution functions, optimisation problems, interpolation/extrapolation and differential equations
